@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.lang.instrument.ClassDefinition;
-import java.lang.instrument.UnmodifiableClassException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.AllPermission;
@@ -410,7 +409,8 @@ public class ApplicationClassloader extends ClassLoader {
                 }
                 List<String> classNames = new ArrayList<String>();
                 for (int i = 0; i < all.size(); i++) {
-                    if (all.get(i) != null && !all.get(i).compiled) {
+                	ApplicationClass applicationClass = all.get(i);
+                    if (applicationClass != null && !applicationClass.compiled && applicationClass.isClass()) {
                         classNames.add(all.get(i).name);
                     }
                 }
